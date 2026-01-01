@@ -3,7 +3,7 @@
 - [バージョン管理](../../readme.md)
 - [バージョン管理／ギット／フック](readme.md)
 
-## コミット・メッセージ（commit_message）
+## コミット・メッセージ（[commit_message](./commit_message)）
 
 ### 実装方法
 
@@ -18,7 +18,7 @@ if git rev-parse --is-inside-work-tree | grep --regexp="^true" --quiet; then cur
 - [Version Control](../../readme.md)
 - [Version Control / Git / Hooks](readme.md)
 
-## Commit Message (commit_message)
+## Commit Message ([commit_message](./commit_message))
 
 ### Deployment
 
