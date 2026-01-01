@@ -13,7 +13,7 @@ VERSION_CONTROL
 └── readme.md
 ```
 
-## 利用規約
+## 利用規約（license.md）
 
 本プロジェクトは[ＭＩＴライセンス](./license.md)に基き提供しております。自己責任にて、自由にご利用いただけます。
 
@@ -32,6 +32,6 @@ VERSION_CONTROL
 └── readme.md
 ```
 
-## License
+## License (license.md)
 
 The project is released under the [MIT License](./license.md). You may use it freely at your own risk.
