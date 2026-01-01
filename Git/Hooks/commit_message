@@ -1,0 +1,111 @@
+#!/usr/bin/env bash
+
+#===============================================================================
+# Bash Script of Git Hook for Commit Messages
+# Copyright (c) 2026 Morii, Yuto @possior. USE AT YOUR OWN RISK, NO WARRANTY.
+#===============================================================================
+
+if
+    git rev-parse --is-inside-work-tree | grep --regexp="^true" --quiet
+then
+    root="$(
+        git rev-parse --show-toplevel
+    )"
+else
+    exit
+fi
+
+if
+    [ -n "$1" ]
+then
+    temp="$1"
+else
+    exit
+fi
+
+date="$(
+    date "+%Y%m%d"
+)"
+
+stage="$(
+    git diff --cached --name-status
+)"
+
+changes=()
+
+while
+    IFS=$'\t'
+    read -r status file1 file2
+do
+    if
+        [ -n "$status" ]
+    then
+        case "$status" in
+            A*)
+                status="Added"
+                ;;
+            C*)
+                status="Copied"
+                ;;
+            D*)
+                status="Deleted"
+                ;;
+            M*)
+                status="Modified"
+                ;;
+            R*)
+                status="Renamed"
+                ;;
+            T*)
+                status="Changed"
+                ;;
+            U*)
+                status="Unmerged"
+                ;;
+            X*)
+                status="Unknown"
+                ;;
+            B*)
+                status="Broken"
+                ;;
+            ?? | *)
+                status="Updated"
+                ;;
+        esac
+    else
+        exit
+    fi
+
+    if
+        [ -n "$file1" ] && [ ! -n "$file2" ]
+    then
+        file1="/${file1#/}"
+        changes+=("$status $file1")
+    elif
+        [ -n "$file1" ] && [ -n "$file2" ]
+    then
+        file1="/${file1#/}"
+        file2="/${file2#/}"
+        changes+=("$status $file1 → $file2")
+    else
+        exit
+    fi
+done <<< "$stage"
+
+commit="$(
+    printf "%s & " "${changes[@]}"
+)"
+
+suffix="$(
+    sed 's/[[:space:]]\+$//; /^$/d; /^[[:space:]]*#/d' "$temp"
+)"
+
+if
+    [ -n "$suffix" ]
+then
+    message="$date | ${commit%" & "} | $suffix"
+else
+    message="$date | ${commit%" & "}"
+fi
+
+echo "$message" > "$temp"
