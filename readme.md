@@ -13,6 +13,10 @@ VERSION_CONTROL
 └── readme.md
 ```
 
+## 利用規約
+
+本プロジェクトは[ＭＩＴライセンス](./license.md)に基き提供しております。自己責任にて、自由にご利用いただけます。
+
 # Version Control
 
 The version control project develops shell scripts for version control: e.g. Git Hook Bash script that automatically generates a formatted commit message for you. 
@@ -27,3 +31,7 @@ VERSION_CONTROL
 ├── license.md
 └── readme.md
 ```
+
+## License
+
+The project is released under the [MIT License](./license.md). You may use it freely at your own risk.
